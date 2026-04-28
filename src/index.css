@@ -82,3 +82,14 @@
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
 }
+
+.pdf-section,
+.pdf-card,
+.pdf-avoid-break,
+.pdf-cta,
+.pdf-capture-page table,
+.pdf-capture-page tr {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+}

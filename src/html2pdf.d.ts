@@ -12,6 +12,7 @@ declare module 'html2pdf.js' {
   }
 
   interface PageBreakOptions {
+    avoid?: string[];
     mode?: Array<'avoid-all' | 'css' | 'legacy'>;
   }
 

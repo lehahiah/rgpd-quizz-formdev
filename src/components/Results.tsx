@@ -153,11 +153,11 @@ export function Results({ answers, onRestart }: Props) {
 
       await html2pdf()
         .set({
-          margin: [10, 10, 10, 10],
+          margin: [8, 10, 8, 10],
           filename,
           image: { type: 'jpeg', quality: 0.98 },
           html2canvas: {
-            scale: 2,
+            scale: 2.2,
             useCORS: true,
             backgroundColor: '#ffffff',
           },
@@ -168,6 +168,7 @@ export function Results({ answers, onRestart }: Props) {
           },
           pagebreak: {
             mode: ['css', 'legacy'],
+            avoid: ['.pdf-avoid-break', '.pdf-card', '.pdf-cta', 'table', 'tr'],
           },
         })
         .from(pdfRef.current)
@@ -410,35 +411,60 @@ interface PrintProps {
   today: string;
 }
 
+const pdfAvoidBreakStyle = {
+  breakInside: 'avoid',
+  pageBreakInside: 'avoid',
+  WebkitColumnBreakInside: 'avoid',
+} as const;
+
 function PrintDocument({ totalScore, level, answers, triggeredThemes, topActions, today }: PrintProps) {
   return (
     <div
+      className="pdf-section"
       style={{
         fontFamily: 'Ubuntu Sans, Ubuntu, Arial, sans-serif',
         color: '#000000',
         maxWidth: '680px',
         margin: '0 auto',
-        padding: '40px 32px',
+        padding: '32px 28px',
       }}
     >
-      <div style={{ borderBottom: '2.5px solid #0A69B3', paddingBottom: '20px', marginBottom: '28px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+      <div
+        className="pdf-section pdf-avoid-break"
+        style={{ borderBottom: '2.5px solid #0A69B3', paddingBottom: '16px', marginBottom: '20px', ...pdfAvoidBreakStyle }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'flex-start',
+            gap: '20px',
+            minHeight: '72px',
+            marginBottom: '12px',
+          }}
+        >
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '8px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', minHeight: '52px' }}>
             <img
               src="https://www.form-dev.fr/wp-content/uploads/2025/06/formdev-logo-carre.png"
               alt="FormDev"
-              style={{ height: '48px', width: 'auto', objectFit: 'contain' }}
+              crossOrigin="anonymous"
+              style={{ height: '52px', width: '52px', objectFit: 'contain', display: 'block' }}
             />
-            <span style={{ color: '#E6E6E6', fontSize: '18px' }}>x</span>
+            <span style={{ color: '#0A69B3', fontSize: '20px', fontWeight: 700, lineHeight: 1 }}>×</span>
             <img
               src="https://www.formaswift.com/images/logo-formaswift.png"
               alt="FormaSwift"
-              style={{ height: '28px', width: 'auto', objectFit: 'contain', opacity: 0.55 }}
+              crossOrigin="anonymous"
+              style={{ height: '34px', width: '150px', objectFit: 'contain', opacity: 1, display: 'block' }}
             />
-            <span style={{ fontSize: '10px', color: '#4a4a4a', marginLeft: '4px' }}>En partenariat</span>
+            </div>
+            <p style={{ margin: 0, fontSize: '11px', fontWeight: 700, color: '#0A69B3', letterSpacing: '0.4px' }}>
+              FormDev × FormaSwift
+            </p>
           </div>
-          <div style={{ textAlign: 'right', fontSize: '11px', color: '#4a4a4a' }}>
-            <p style={{ margin: 0 }}>Genere le</p>
+          <div style={{ textAlign: 'right', fontSize: '11px', color: '#4a4a4a', paddingTop: '6px' }}>
+            <p style={{ margin: 0 }}>Généré le</p>
             <p style={{ margin: 0, fontWeight: 600, color: '#0A69B3' }}>{today}</p>
           </div>
         </div>
@@ -452,23 +478,25 @@ function PrintDocument({ totalScore, level, answers, triggeredThemes, topActions
             lineHeight: 1.3,
           }}
         >
-          Votre RGPD reflete-t-il encore vos pratiques actuelles ?
+          Votre RGPD reflète-t-il encore vos pratiques actuelles ?
         </h1>
         <p style={{ fontSize: '12px', color: '#F39207', fontWeight: 600, margin: '4px 0 0 0', letterSpacing: '0.5px' }}>
-          Diagnostic RGPD - Organisme de formation
+          Diagnostic RGPD · Organisme de formation
         </p>
       </div>
 
       <div
+        className="pdf-card pdf-avoid-break"
         style={{
           background: '#dbeeff',
           border: '1.5px solid #E6E6E6',
           borderRadius: '12px',
-          padding: '24px',
-          marginBottom: '24px',
+          padding: '20px',
+          marginBottom: '18px',
           display: 'flex',
-          gap: '24px',
+          gap: '20px',
           alignItems: 'center',
+          ...pdfAvoidBreakStyle,
         }}
       >
         <div
@@ -477,7 +505,7 @@ function PrintDocument({ totalScore, level, answers, triggeredThemes, topActions
             background: 'white',
             border: '2px solid #93c5f5',
             borderRadius: '12px',
-            padding: '16px 20px',
+            padding: '14px 18px',
             minWidth: '90px',
           }}
         >
@@ -518,11 +546,11 @@ function PrintDocument({ totalScore, level, answers, triggeredThemes, topActions
           >
             {level.tagline}
           </p>
-          <p style={{ fontSize: '13px', color: '#4a4a4a', margin: 0, lineHeight: 1.6 }}>{level.message}</p>
+          <p style={{ fontSize: '13px', color: '#4a4a4a', margin: 0, lineHeight: 1.55 }}>{level.message}</p>
         </div>
       </div>
 
-      <div style={{ marginBottom: '24px' }}>
+      <div className="pdf-section pdf-card pdf-avoid-break" style={{ marginBottom: '18px', ...pdfAvoidBreakStyle }}>
         <h2
           style={{
             fontFamily: 'Montserrat, Arial, sans-serif',
@@ -534,12 +562,12 @@ function PrintDocument({ totalScore, level, answers, triggeredThemes, topActions
             letterSpacing: '0.8px',
           }}
         >
-          Score par theme
+          Score par thème
         </h2>
-        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px' }}>
+        <table className="pdf-avoid-break" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px', ...pdfAvoidBreakStyle }}>
           <thead>
             <tr style={{ borderBottom: '1.5px solid #E6E6E6' }}>
-              <th style={{ textAlign: 'left', padding: '6px 8px', color: '#4a4a4a', fontWeight: 600 }}>Theme</th>
+              <th style={{ textAlign: 'left', padding: '6px 8px', color: '#4a4a4a', fontWeight: 600 }}>Thème</th>
               <th style={{ textAlign: 'center', padding: '6px 8px', color: '#4a4a4a', fontWeight: 600, width: '80px' }}>Score</th>
               <th style={{ textAlign: 'center', padding: '6px 8px', color: '#4a4a4a', fontWeight: 600, width: '80px' }}>Niveau</th>
             </tr>
@@ -550,7 +578,11 @@ function PrintDocument({ totalScore, level, answers, triggeredThemes, topActions
               const isHigh = percent >= 50;
 
               return (
-                <tr key={theme.id} style={{ borderBottom: '1px solid #F7F7F7', background: isHigh ? '#FEF3DC' : 'transparent' }}>
+                <tr
+                  key={theme.id}
+                  className="pdf-avoid-break"
+                  style={{ borderBottom: '1px solid #F7F7F7', background: isHigh ? '#FEF3DC' : 'transparent', ...pdfAvoidBreakStyle }}
+                >
                   <td style={{ padding: '8px', color: '#000000' }}>{theme.name}</td>
                   <td style={{ padding: '8px', textAlign: 'center', fontWeight: 600, color: isHigh ? '#F39207' : '#0A69B3' }}>
                     {score}/{max}
@@ -566,7 +598,7 @@ function PrintDocument({ totalScore, level, answers, triggeredThemes, topActions
                         color: isHigh ? '#d97706' : '#0A69B3',
                       }}
                     >
-                      {isHigh ? 'A revoir' : 'OK'}
+                      {isHigh ? 'À revoir' : 'OK'}
                     </span>
                   </td>
                 </tr>
@@ -576,7 +608,10 @@ function PrintDocument({ totalScore, level, answers, triggeredThemes, topActions
         </table>
       </div>
 
-      <div style={{ marginBottom: '24px', background: '#dbeeff', border: '1.5px solid #E6E6E6', borderRadius: '12px', padding: '20px' }}>
+      <div
+        className="pdf-card pdf-avoid-break"
+        style={{ marginBottom: '18px', background: '#dbeeff', border: '1.5px solid #E6E6E6', borderRadius: '12px', padding: '18px', ...pdfAvoidBreakStyle }}
+      >
         <h2
           style={{
             fontFamily: 'Montserrat, Arial, sans-serif',
@@ -588,18 +623,18 @@ function PrintDocument({ totalScore, level, answers, triggeredThemes, topActions
             letterSpacing: '0.8px',
           }}
         >
-          Vos 3 priorites
+          Vos 3 priorités
         </h2>
-        <ol style={{ margin: 0, paddingLeft: '20px', fontSize: '13px', color: '#000000', lineHeight: 1.8 }}>
+        <ol style={{ margin: 0, paddingLeft: '20px', fontSize: '13px', color: '#000000', lineHeight: 1.7 }}>
           {topActions.map((action, index) => (
-            <li key={index} style={{ marginBottom: '6px' }}>
+            <li key={index} style={{ marginBottom: '5px' }}>
               {action}
             </li>
           ))}
         </ol>
       </div>
 
-      <div style={{ marginBottom: '24px' }}>
+      <div className="pdf-card pdf-avoid-break" style={{ marginBottom: '18px', ...pdfAvoidBreakStyle }}>
         <h2
           style={{
             fontFamily: 'Montserrat, Arial, sans-serif',
@@ -611,9 +646,9 @@ function PrintDocument({ totalScore, level, answers, triggeredThemes, topActions
             letterSpacing: '0.8px',
           }}
         >
-          Recommandations generales
+          Recommandations générales
         </h2>
-        <ul style={{ margin: 0, paddingLeft: '18px', fontSize: '13px', color: '#4a4a4a', lineHeight: 1.8 }}>
+        <ul style={{ margin: 0, paddingLeft: '18px', fontSize: '13px', color: '#4a4a4a', lineHeight: 1.7 }}>
           {level.recommendations.map((rec, index) => (
             <li key={index}>{rec}</li>
           ))}
@@ -621,7 +656,7 @@ function PrintDocument({ totalScore, level, answers, triggeredThemes, topActions
       </div>
 
       {triggeredThemes.length > 0 && (
-        <div style={{ marginBottom: '24px' }}>
+        <div className="pdf-section" style={{ marginBottom: '18px' }}>
           <h2
             style={{
               fontFamily: 'Montserrat, Arial, sans-serif',
@@ -633,17 +668,19 @@ function PrintDocument({ totalScore, level, answers, triggeredThemes, topActions
               letterSpacing: '0.8px',
             }}
           >
-            Points d&apos;attention par theme
+            Points d&apos;attention par thème
           </h2>
           {triggeredThemes.map((rec) => (
             <div
               key={rec.themeId}
+              className="pdf-card pdf-avoid-break"
               style={{
-                marginBottom: '14px',
-                padding: '14px 16px',
+                marginBottom: '12px',
+                padding: '12px 14px',
                 background: '#FEF3DC',
                 border: '1px solid #fde68a',
                 borderRadius: '10px',
+                ...pdfAvoidBreakStyle,
               }}
             >
               <p
@@ -669,7 +706,7 @@ function PrintDocument({ totalScore, level, answers, triggeredThemes, topActions
               >
                 {rec.headline}
               </p>
-              <ul style={{ margin: 0, paddingLeft: '16px', fontSize: '12px', color: '#4a4a4a', lineHeight: 1.7 }}>
+              <ul style={{ margin: 0, paddingLeft: '16px', fontSize: '12px', color: '#4a4a4a', lineHeight: 1.6 }}>
                 {rec.actions.map((action, index) => (
                   <li key={index}>{action}</li>
                 ))}
@@ -679,20 +716,31 @@ function PrintDocument({ totalScore, level, answers, triggeredThemes, topActions
         </div>
       )}
 
-      <div style={{ background: '#073d6b', color: 'white', borderRadius: '12px', padding: '20px', marginBottom: '24px', textAlign: 'center' }}>
+      <div
+        className="pdf-card pdf-avoid-break pdf-cta"
+        style={{
+          background: '#073d6b',
+          color: 'white',
+          borderRadius: '12px',
+          padding: '18px',
+          marginBottom: '18px',
+          textAlign: 'center',
+          ...pdfAvoidBreakStyle,
+        }}
+      >
         <p style={{ fontFamily: 'Montserrat, Arial, sans-serif', fontSize: '14px', fontWeight: 600, margin: '0 0 6px 0' }}>
           Pour aller plus loin
         </p>
-        <p style={{ fontSize: '12px', color: '#93c5f5', margin: '0 0 10px 0', lineHeight: 1.6 }}>
-          Inscrivez-vous au prochain webinaire ou contactez-nous pour un accompagnement personnalise.
+        <p style={{ fontSize: '12px', color: '#93c5f5', margin: '0 0 8px 0', lineHeight: 1.55 }}>
+          Inscrivez-vous au prochain webinaire ou contactez-nous pour un accompagnement personnalisé.
         </p>
         <p style={{ fontSize: '13px', fontWeight: 700, color: '#F39207', margin: 0 }}>julie@formaswift.com</p>
       </div>
 
-      <div style={{ borderTop: '1px solid #E6E6E6', paddingTop: '16px' }}>
-        <p style={{ fontSize: '11px', color: '#4a4a4a', lineHeight: 1.6, margin: 0, textAlign: 'center' }}>
-          Ce diagnostic est un outil d&apos;auto-evaluation pedagogique. Il ne remplace pas une analyse complete par un
-          DPO, un juriste ou un conseil specialise.
+      <div className="pdf-section pdf-avoid-break" style={{ borderTop: '1px solid #E6E6E6', paddingTop: '14px', ...pdfAvoidBreakStyle }}>
+        <p style={{ fontSize: '11px', color: '#4a4a4a', lineHeight: 1.55, margin: 0, textAlign: 'center' }}>
+          Ce diagnostic est un outil d&apos;auto-évaluation pédagogique. Il ne remplace pas une analyse complète par un
+          DPO, un juriste ou un conseil spécialisé.
         </p>
       </div>
     </div>
