@@ -47,7 +47,7 @@ export function QuizQuestion({ question, questionIndex, answers, onAnswer, onBac
   }, [question.id]);
 
   return (
-    <div className="min-h-screen bg-brand-bg flex flex-col">
+    <div className="min-h-screen bg-[#F4F4F5] flex flex-col">
       {/* Header */}
       <header className="bg-white border-b border-brand-border px-4 py-3 sticky top-0 z-10">
         <div className="max-w-2xl mx-auto">
@@ -230,7 +230,7 @@ export function QuizQuestion({ question, questionIndex, answers, onAnswer, onBac
 
         {/* Illustration panel — quizz.png — desktop only */}
         <aside className="hidden lg:flex shrink-0 w-72 xl:w-80 sticky top-24 self-start">
-          <div className="w-full rounded-2xl bg-[#F3F4F6] flex items-center justify-center p-4 min-h-[420px]">
+          <div className="w-full rounded-2xl bg-[#F4F4F5] flex items-center justify-center p-4 min-h-[420px]">
             <img
               src="/quizz.png"
               alt=""
