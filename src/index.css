@@ -31,7 +31,6 @@
     box-sizing: border-box;
   }
 
-  /* Global focus style (RGAA 10.7) */
   :focus-visible {
     outline: 3px solid var(--color-action);
     outline-offset: 3px;
@@ -39,12 +38,10 @@
   }
 }
 
-/* Russo One — score digits only */
 .font-score {
   font-family: 'Russo One', 'Montserrat', sans-serif;
 }
 
-/* Skip link (RGAA 12.7) */
 .skip-link {
   position: absolute;
   top: -999px;
@@ -58,43 +55,30 @@
   text-decoration: none;
   border-radius: 0 0 8px 0;
 }
+
 .skip-link:focus {
   top: 0;
   outline: 3px solid var(--color-accent);
   outline-offset: 2px;
 }
 
-/* ── Print styles ── */
-@media print {
-  @page {
-    size: A4;
-    margin: 0;
-  }
+.pdf-capture-shell {
+  position: fixed;
+  top: 0;
+  left: -200vw;
+  width: 794px;
+  pointer-events: none;
+  z-index: -1;
+}
 
-  html,
-  body {
-    background: white !important;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
+.pdf-capture-page {
+  width: 794px;
+  min-height: 1123px;
+  background: #ffffff;
+}
 
-  body > * {
-    display: none !important;
-  }
-
-  .print-document {
-    display: block !important;
-  }
-
-  #root {
-    display: block !important;
-  }
-
-  .print\:block {
-    display: block !important;
-  }
-
-  .print\:hidden {
-    display: none !important;
-  }
+.pdf-capture-page,
+.pdf-capture-page * {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
 }
