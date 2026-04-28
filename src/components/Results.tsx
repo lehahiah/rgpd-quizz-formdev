@@ -445,19 +445,17 @@ function PrintDocument({ totalScore, level, answers, triggeredThemes, topActions
         >
           <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '8px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', minHeight: '52px' }}>
-            <img
-              src="https://www.form-dev.fr/wp-content/uploads/2025/06/formdev-logo-carre.png"
-              alt="FormDev"
-              crossOrigin="anonymous"
-              style={{ height: '52px', width: '52px', objectFit: 'contain', display: 'block' }}
-            />
-            <span style={{ color: '#0A69B3', fontSize: '20px', fontWeight: 700, lineHeight: 1 }}>×</span>
-            <img
-              src="https://www.formaswift.com/images/logo-formaswift.png"
-              alt="FormaSwift"
-              crossOrigin="anonymous"
-              style={{ height: '34px', width: '150px', objectFit: 'contain', opacity: 1, display: 'block' }}
-            />
+              <img
+                src="/logoformdev.png"
+                alt="FormDev"
+                style={{ height: '80px', width: '80px', objectFit: 'contain', display: 'block' }}
+              />
+              <span style={{ color: '#0A69B3', fontSize: '20px', fontWeight: 700, lineHeight: 1 }}>×</span>
+              <img
+                src="/logoformaswift-rectangle.png"
+                alt="FormaSwift"
+                style={{ height: '38px', width: '164px', objectFit: 'contain', opacity: 1, display: 'block' }}
+              />
             </div>
             <p style={{ margin: 0, fontSize: '11px', fontWeight: 700, color: '#0A69B3', letterSpacing: '0.4px' }}>
               FormDev × FormaSwift
