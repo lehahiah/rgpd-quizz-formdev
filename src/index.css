@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Ubuntu+Sans:wght@400;500;600;700&family=Ubuntu:wght@400;500;700&family=Russo+One&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-text: #000000;
+  --color-bg: #F7F7F7;
+  --color-primary: #0A69B3;
+  --color-accent: #F39207;
+  --color-border: #E6E6E6;
+  --color-action: #007EFF;
+}
+
+@layer base {
+  html {
+    font-family: 'Ubuntu Sans', 'Ubuntu', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 16px;
+    color: var(--color-text);
+    background: var(--color-bg);
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Montserrat', 'Ubuntu Sans', sans-serif;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  /* Global focus style (RGAA 10.7) */
+  :focus-visible {
+    outline: 3px solid var(--color-action);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+/* Russo One — score digits only */
+.font-score {
+  font-family: 'Russo One', 'Montserrat', sans-serif;
+}
+
+/* Skip link (RGAA 12.7) */
+.skip-link {
+  position: absolute;
+  top: -999px;
+  left: 0;
+  z-index: 9999;
+  padding: 8px 16px;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 0 0 8px 0;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ── Print styles ── */
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  html,
+  body {
+    background: white !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body > * {
+    display: none !important;
+  }
+
+  .print-document {
+    display: block !important;
+  }
+
+  #root {
+    display: block !important;
+  }
+
+  .print\:block {
+    display: block !important;
+  }
+
+  .print\:hidden {
+    display: none !important;
+  }
+}
