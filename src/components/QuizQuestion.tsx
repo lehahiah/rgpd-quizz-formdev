@@ -230,7 +230,7 @@ export function QuizQuestion({ question, questionIndex, answers, onAnswer, onBac
 
         {/* Illustration panel — quizz.png — desktop only */}
         <aside className="hidden lg:flex shrink-0 w-72 xl:w-80 sticky top-24 self-start">
-          <div className="w-full rounded-2xl bg-[#EBEBEB] flex items-center justify-center p-4 min-h-[420px]">
+          <div className="w-full rounded-2xl bg-[#F3F4F6] flex items-center justify-center p-4 min-h-[420px]">
             <img
               src="/quizz.png"
               alt=""

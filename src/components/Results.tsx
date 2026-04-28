@@ -214,7 +214,7 @@ export function Results({ answers, onRestart }: Props) {
               <div className="flex flex-col md:flex-row">
                 <div
                   className="hidden shrink-0 items-center justify-center overflow-hidden rounded-l-2xl md:flex md:w-52 lg:w-60"
-                  style={{ background: '#EBEBEB' }}
+                  style={{ background: '#F3F4F6' }}
                 >
                   <img
                     src="/resultats.png"
